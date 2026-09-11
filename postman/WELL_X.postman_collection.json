@@ -1,0 +1,49 @@
+{
+  "info": {
+    "name": "WELL X API",
+    "description": "Requests for testing the WELL X drilling-risk API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://127.0.0.1:8000" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"] }
+      }
+    },
+    {
+      "name": "Search incidents",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/search?lat=27.35&lon=95.15&depth_m=2500&query=stuck%20pipe&top_k=5",
+          "host": ["{{baseUrl}}"],
+          "path": ["search"],
+          "query": [
+            { "key": "lat", "value": "27.35" },
+            { "key": "lon", "value": "95.15" },
+            { "key": "depth_m", "value": "2500" },
+            { "key": "query", "value": "stuck pipe" },
+            { "key": "top_k", "value": "5" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Check risk",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lat\": 27.35,\n  \"lon\": 95.15,\n  \"current_depth_m\": 2500,\n  \"planned_formation\": \"Gas-Bearing Sand\",\n  \"top_k\": 5\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/check_risk", "host": ["{{baseUrl}}"], "path": ["check_risk"] }
+      }
+    }
+  ]
+}
