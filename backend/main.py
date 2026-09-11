@@ -37,6 +37,16 @@ def health():
         "embeddings": "configured" if client is not None else "not_configured",
     }
 
+
+@app.get("/")
+def root():
+    return {
+        "service": "well-x-api",
+        "message": "WELL X backend is running.",
+        "docs": "/docs",
+        "health": "/health",
+    }
+
 ALERT_THRESHOLDS = {"HIGH": 0.65, "MEDIUM": 0.50, "LOW": 0.35}  # combined-score cutoffs
 
 
